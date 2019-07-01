@@ -1,13 +1,13 @@
 {
-  "name": "vanilla-world-news",
+  "name": "twitch-video-viewer",
   "version": "0.1.0",
   "author": "Ken Huh <ken@vanillacoding.co>",
-  "description": "World News Aggregator Web with React",
+  "description": "Twitch Video Viewer with React",
   "private": true,
   "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "2.0.5"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
