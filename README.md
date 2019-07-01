@@ -1,4 +1,4 @@
-# World News Aggregator
+# Twitch Video Viewer
 
 ## Setup
 
