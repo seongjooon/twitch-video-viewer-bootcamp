@@ -28,7 +28,7 @@ $ yarn start (or npm start)
 - 위에서 가입한 계정을 이용하여 [Twitch Developers](https://dev.twitch.tv/console)에 로그인하세요.
 - [Register Your Application](https://dev.twitch.tv/console/apps/create)을 선택하세요.
 - Name 칸에 본인만의 고유한 이름(예: `본인아이디 React Sample`)을 이용하여 어플리케이션 이름을 입력하세요. 고유하지 않은 이름을 사용하여 여러번 신청을 하면 잠시 계정이 차단됩니다. 주의하세요.
-- OAuth Redirect URL 칸에 `localhost:8000`을 입력하세요.
+- OAuth Redirect URL 칸에 `localhost:3000`을 입력하세요.
 - Category를 선택하세요.
 - Robot이 아님을 체크한 후, Create 버튼을 클릭하세요.
 - [Twitch Developers Console](https://dev.twitch.tv/console)에서 방금 만든 어플리케이션을 클릭하세요.
