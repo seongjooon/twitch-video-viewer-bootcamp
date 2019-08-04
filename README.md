@@ -31,6 +31,8 @@ $ yarn start (or npm start)
 - OAuth Redirect URL 칸에 `localhost:8000`을 입력하세요.
 - Category를 선택하세요.
 - Robot이 아님을 체크한 후, Create 버튼을 클릭하세요.
+- [Twitch Developers Console](https://dev.twitch.tv/console)에서 방금 만든 어플리케이션을 클릭하세요.
+- 가장 아래에 보이는 Client ID를 이용하여 API 호출을 하시면 됩니다.
 
 ## TODO
 
