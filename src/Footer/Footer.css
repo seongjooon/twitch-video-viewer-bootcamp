@@ -1,0 +1,15 @@
+footer {
+  position: absolute;
+  top: 106%;
+  color: rgb(85, 85, 85);
+  border-top: solid;
+  border-color: rgb(49, 49, 49);
+  border-width: 2px;
+  padding: 20px;
+  padding-left: 30px;
+  width: 97%;
+}
+
+.vanilla-coding-logo>img {
+  width: 220px;
+}

@@ -8,10 +8,10 @@ function Videos({ thumbnail, title, runtime, viewAble, viewCount, createDay, use
     <div className='Videos'>
       <div className='Video-elements'>
         <Video thumbnail={thumbnail ? thumbnail : noImg} title={title} isClicked={isClicked} />
-        <div className='run-time'>{runtime}</div>
-        <div className={cn('view-able', `${viewAble}`)} >{viewAble}</div>
-        <div className='view-count'>{viewCount}views</div>
-        <div className='create-day' >{createDay.slice(0, 10)}</div>
+        <div className='hidden run-time'>{runtime}</div>
+        <div className={cn('view-able', `${viewAble}`) + ' hidden'} >{viewAble}</div>
+        <div className='view-count hidden'>{viewCount}views</div>
+        <div className='create-day hidden' >{createDay.slice(0, 10)}</div>
         <div className='video-title' >{title}</div>
         <div className='name-language'>
           <div className='language' >{language}</div>
@@ -23,7 +23,7 @@ function Videos({ thumbnail, title, runtime, viewAble, viewCount, createDay, use
 }
 
 function Video({ thumbnail, title, isClicked }) {
-  return <img src={thumbnail} alt={title} onClick={isClicked} onMouseOver={(e) => {console.log('over', e)}} onMouseOut={(e) => {console.log('out', e)}}/>;
+  return <img src={thumbnail} alt={title} onClick={isClicked} />;
 }
 
 export default Videos;

@@ -36,7 +36,7 @@
 .selected {
   opacity: 1 !important;
   transform : scale(1.01);
-  box-shadow: 0 10px 38px rgba(133, 133, 133, 0.3), 0 4px 40px rgba(140, 43, 231, 0.719);
+  box-shadow: 0 10px 38px rgba(133, 133, 133, 0.3), 0 4px 40px rgba(161, 73, 243, 0.719);
 }
 
 .top-title {

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import TopTen from './TopTen';
-import Videos from './Videos';
-import Modal from './Modal';
-import getGamesApi from './GamesApi';
-import getVideosApi from './VideosApi';
+import TopTen from './TopTen/TopTen';
+import TopTenList from './TopTen/TopTenList';
+import Videos from './Videos/Videos';
+import Modal from './Modal/Modal';
+import Footer from './Footer/Footer';
+import getGamesApi from './Api/GamesApi';
+import getVideosApi from './Api/VideosApi';
 import mainImg from './favicon.png';
 
 class App extends Component {
@@ -32,16 +34,15 @@ class App extends Component {
   }
 
   _videoClicked = video => {
-    console.log(video);
-    this.setState({ videoId: video.id, description: video.description })
+    this.setState({ videoId: video.id, description: video.description });
     this._handdleClickModal();
   }
 
   _handdleClickModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen })
+    this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
-  _pagenationClicked(paginationData) {
+  _pagenationClicked = (paginationData) => {
     this._getVideos(paginationData[0], paginationData[1], paginationData[2]);
   }
 
@@ -55,7 +56,7 @@ class App extends Component {
           key={game.id}
           gamekey={game.id}
           poster={game.box_art_url.replace('{width}x{height}', '150x210')}
-          isClicked={() => this._gameListClicked(game)}
+          gameClicked={() => this._gameListClicked(game)}
           selectedGame={selectedGame}
         />
       );
@@ -72,7 +73,7 @@ class App extends Component {
           createDay={video.created_at}
           runtime={video.duration}
           language={video.language}
-          thumbnail={video.thumbnail_url.replace('%{width}x%{height}', '300x168')}
+          thumbnail={video.thumbnail_url.replace('%{width}x%{height}', '285x161')}
           title={video.title}
           userName={video.user_name}
           viewCount={video.view_count}
@@ -97,7 +98,7 @@ class App extends Component {
   }
 
   render() {
-    const { topGames, videos, videoId, isModalOpen, description } = this.state;
+    const { topGames, videos, videoId, isModalOpen, description, selectedGame } = this.state;
     return (
       <div className='App'>
         {isModalOpen && <Modal videoId={videoId} description={description} handleClickModal={this._handdleClickModal} />}
@@ -111,26 +112,15 @@ class App extends Component {
           <span>|</span>
         </div>
 
-        {/* GameList */}
-        <div className='game-list'>
-          {topGames ? this._renderGames() : 'Loading'}
-        </div>
+        <TopTenList topGames={topGames} renderGames={this._renderGames()} />
 
-        {/* VideoList */}
         <div className='video-list'>
           {videos.length !== 0 ? this._renderVideos() : 'Loading'}
-          <i class="fas fa-6x fa-angle-left" onClick={this._pagenationClicked.bind(this, [this.state.selectedGame, 'before', this.state.videos])}></i>
-          <i class="fas fa-6x fa-angle-right" onClick={this._pagenationClicked.bind(this, [this.state.selectedGame, 'after', this.state.videos])}></i>
+          <i class='fas fa-5x fa-angle-left' onClick={this._pagenationClicked.bind(this, [selectedGame, 'before', videos])}></i>
+          <i class='fas fa-5x fa-angle-right' onClick={this._pagenationClicked.bind(this, [selectedGame, 'after', videos])}></i>
         </div>
-
-        {/* Footer */}
-        <footer>
-          <li>Producer : SeongJoon Kim</li>
-          <li>General Supervisor : Ken Huh</li>
-          <li>Refferance : Twitch(www.twitch.tv)</li>
-          <p> </p>
-          <div>ⓒ Vanilla Coding (www.vanillacoding.co) </div>
-        </footer>
+        
+        <Footer />
       </div>
     );
   }

@@ -17,7 +17,7 @@ export default function Modal({ videoId, description, handleClickModal }) {
             allowFullScreen={true}
           >
           </iframe>
-          <div className={cn({'video-description': description})}>{description}</div>
+          <div className={cn({ 'video-description': description })}>{description}</div>
         </div>
       </div>
     </>
