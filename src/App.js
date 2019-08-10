@@ -20,7 +20,7 @@ class App extends Component {
       videoId: null,
       isModalOpen: false,
       description: null
-    }
+    };
   }
 
   componentDidMount() {
@@ -64,6 +64,7 @@ class App extends Component {
     return topGameList;
   };
 
+  
   _renderVideos = () => {
     const { videos } = this.state;
     const videoList = videos.data.map(video => {
@@ -116,8 +117,8 @@ class App extends Component {
 
         <div className='video-list'>
           {videos.length !== 0 ? this._renderVideos() : 'Loading'}
-          <i class='fas fa-5x fa-angle-left' onClick={this._pagenationClicked.bind(this, [selectedGame, 'before', videos])}></i>
-          <i class='fas fa-5x fa-angle-right' onClick={this._pagenationClicked.bind(this, [selectedGame, 'after', videos])}></i>
+          <i className='fas fa-5x fa-angle-left' onClick={this._pagenationClicked.bind(this, [selectedGame, 'before', videos])}></i>
+          <i className='fas fa-5x fa-angle-right' onClick={this._pagenationClicked.bind(this, [selectedGame, 'after', videos])}></i>
         </div>
         
         <Footer />

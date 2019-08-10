@@ -7,14 +7,26 @@ function TopTen({ index, title, poster, gamekey, gameClicked, selectedGame }) {
     <div className='Top-10'>
       <div className='Top-10-element'>
         {gamekey !== selectedGame.id ? <div className='games-rank'>{index + 1}</div> : null}
-        <GamePoster title={title} poster={poster} gamekey={gamekey} gameClicked={gameClicked} selectedGame={selectedGame} />
+        <GamePoster
+          title={title}
+          poster={poster}
+          gamekey={gamekey}
+          gameClicked={gameClicked}
+          selectedGame={selectedGame}
+        />
       </div>
     </div>
   );
 }
 
 function GamePoster({ title, poster, gamekey, gameClicked, selectedGame }) {
-  return <img className={cn({ 'selected': gamekey === selectedGame.id })} src={poster} alt={title} title={title} gamekey={gamekey} onClick={gameClicked} />;
+  return (
+    <img className={cn({ 'selected': gamekey === selectedGame.id })}
+      src={poster} alt={title}
+      title={title}
+      gamekey={gamekey}
+      onClick={gameClicked} />
+  );
 }
 
 export default TopTen;

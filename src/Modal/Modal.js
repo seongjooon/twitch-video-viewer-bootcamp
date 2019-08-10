@@ -15,8 +15,7 @@ export default function Modal({ videoId, description, handleClickModal }) {
             frameBorder='0'
             scrolling='no'
             allowFullScreen={true}
-          >
-          </iframe>
+          />
           <div className={cn({ 'video-description': description })}>{description}</div>
         </div>
       </div>
