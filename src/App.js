@@ -75,7 +75,6 @@ class App extends Component {
     });
     return topGameList;
   };
-
   
   _renderVideos() {
     const { videos } = this.state;
