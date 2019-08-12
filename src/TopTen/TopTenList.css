@@ -1,9 +1,0 @@
-.game-list {
-  position: fixed;
-  z-index:1;
-  top: 8%;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  background-color: #1b1b1b;
-}

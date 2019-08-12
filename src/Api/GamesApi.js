@@ -6,6 +6,6 @@ export default function getGamesApi() {
   return axios({
     method: 'get',
     url: urls,
-    headers: { "Client-ID": apiKey }
+    headers: { 'Client-ID': apiKey }
   }).then(res => res.data.data);
 }

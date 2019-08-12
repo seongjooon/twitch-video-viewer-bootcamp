@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import TopTen from './TopTen/TopTen';
-import TopTenList from './TopTen/TopTenList';
+import ListContainer from './TopTen/ListContainer';
 import Videos from './Videos/Videos';
 import Modal from './Modal/Modal';
 import Footer from './Footer/Footer';
@@ -16,7 +16,7 @@ class App extends Component {
       topGames: [],
       firstGame: null,
       selectedGame: null,
-      videos: [],
+      videos: {},
       videoId: null,
       isModalOpen: false,
       description: null
@@ -24,26 +24,38 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this._getGames();
+    this._getInitialGames();
   }
 
-  _gameListClicked = game => {
+  _onGameListClick = game => {
     this._getVideos(game);
     let selectedGame = game;
     this.setState({ selectedGame });
   }
 
-  _videoClicked = video => {
+  _onVideoClick = video => {
     this.setState({ videoId: video.id, description: video.description });
-    this._handdleClickModal();
+    this._handleModalClick();
   }
 
-  _handdleClickModal = () => {
+  _handleModalClick = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen });
   }
 
-  _pagenationClicked = (paginationData) => {
+  _handlePagenationClick = (paginationData) => {
     this._getVideos(paginationData[0], paginationData[1], paginationData[2]);
+  }
+
+  _getInitialGames = async () => {
+    const topGames = await getGamesApi();
+    const firstGame = topGames[0];
+    this.setState({ topGames, firstGame, selectedGame: firstGame });
+    this._getVideos(firstGame);
+  };
+
+  _getVideos = async (gameId, arrow = null, videosData = null) => {
+    const videos = await getVideosApi(gameId.id, arrow, videosData);
+    this.setState({ videos });
   }
 
   _renderGames = () => {
@@ -54,9 +66,9 @@ class App extends Component {
           index={index}
           title={game.name}
           key={game.id}
-          gamekey={game.id}
+          gameId={game.id}
           poster={game.box_art_url.replace('{width}x{height}', '150x210')}
-          gameClicked={() => this._gameListClicked(game)}
+          onGameClick={() => this._onGameListClick(game)}
           selectedGame={selectedGame}
         />
       );
@@ -65,8 +77,11 @@ class App extends Component {
   };
 
   
-  _renderVideos = () => {
+  _renderVideos() {
     const { videos } = this.state;
+    if (!videos.data.length) {
+      return 'Loding';
+    }
     const videoList = videos.data.map(video => {
       return (
         <Videos
@@ -79,30 +94,18 @@ class App extends Component {
           userName={video.user_name}
           viewCount={video.view_count}
           viewAble={video.viewable}
-          isClicked={() => this._videoClicked(video)}
+          onVideoClick={() => this._onVideoClick(video)}
         />
       );
     });
     return videoList;
   };
 
-  _getGames = async () => {
-    const topGames = await getGamesApi();
-    const firstGame = topGames[0];
-    this.setState({ topGames, firstGame, selectedGame: firstGame });
-    this._getVideos(firstGame);
-  };
-
-  _getVideos = async (gameId, arrow = null, videosData = null) => {
-    const videos = await getVideosApi(gameId.id, arrow, videosData);
-    this.setState({ videos });
-  }
-
   render() {
-    const { topGames, videos, videoId, isModalOpen, description, selectedGame } = this.state;
+    const { videos, videoId, isModalOpen, description, selectedGame } = this.state;
     return (
       <div className='App'>
-        {isModalOpen && <Modal videoId={videoId} description={description} handleClickModal={this._handdleClickModal} />}
+        {isModalOpen && <Modal videoId={videoId} description={description} handleModalClick={this._handleModalClick} />}
         <div className='App-header'>
           <a className='main-logo' href='https://www.twitch.tv/'>
             <img src={mainImg} alt={'Twitch'} className='main-image' />
@@ -113,12 +116,12 @@ class App extends Component {
           <span>|</span>
         </div>
 
-        <TopTenList topGames={topGames} renderGames={this._renderGames()} />
+        <ListContainer renderGames={this._renderGames()} />
 
         <div className='video-list'>
-          {videos.length !== 0 ? this._renderVideos() : 'Loading'}
-          <i className='fas fa-5x fa-angle-left' onClick={this._pagenationClicked.bind(this, [selectedGame, 'before', videos])}></i>
-          <i className='fas fa-5x fa-angle-right' onClick={this._pagenationClicked.bind(this, [selectedGame, 'after', videos])}></i>
+          {videos.data ? this._renderVideos() : 'Loading'}
+          <i className='fas fa-5x fa-angle-left' onClick={this._handlePagenationClick.bind(this, [selectedGame, 'before', videos])}></i>
+          <i className='fas fa-5x fa-angle-right' onClick={this._handlePagenationClick.bind(this, [selectedGame, 'after', videos])}></i>
         </div>
         
         <Footer />

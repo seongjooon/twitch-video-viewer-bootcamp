@@ -3,14 +3,15 @@ import cn from 'classnames';
 import './Videos.css';
 import noImg from './noimage.png';
 
-function Videos({ thumbnail, title, runtime, viewAble, viewCount, createDay, userName, language, isClicked }) {
+function Videos({ thumbnail, title, runtime, viewAble, viewCount, createDay, userName, language, onVideoClick }) {
   return (
     <div className='Videos'>
       <div className='Video-elements'>
         <Video
-          thumbnail={thumbnail ? thumbnail : noImg}
+          imageSrc={thumbnail}
+          defaultImageSrc={noImg}
           title={title}
-          isClicked={isClicked}
+          onVideoClick={onVideoClick}
         />
 
         <div className='hidden run-time'>{runtime}</div>
@@ -29,8 +30,8 @@ function Videos({ thumbnail, title, runtime, viewAble, viewCount, createDay, use
   );
 }
 
-function Video({ thumbnail, title, isClicked }) {
-  return <img src={thumbnail} alt={title} onClick={isClicked} />;
+function Video({ imageSrc, defaultImageSrc, title, onVideoClick }) {
+  return <img src={imageSrc ? imageSrc : defaultImageSrc} alt={title} onClick={onVideoClick} />;
 }
 
 export default Videos;
